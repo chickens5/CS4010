@@ -1,3 +1,6 @@
+//Professor Henry Kang | CS 4010
+// Gabriel J ~ Lat updated: August 30, 2026
+
 package com.packt.cardatabase.domain;
 
 import java.util.List;
@@ -24,6 +27,7 @@ public class Owner {
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
+
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private List<Car> cars;
