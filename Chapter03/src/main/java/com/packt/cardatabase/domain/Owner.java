@@ -28,9 +28,21 @@ public class Owner {
 		this.lastname = lastname;
 	}
 
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private List<Car> cars;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+	private List<Pet> pets;
+
+	public List<Pet> getPets() {
+
+		return pets;
+	}
+
+	public void setPets(List<Pet> pets) {
+
+		this.pets = pets;
+	}
 
 	public List<Car> getCars() {
 

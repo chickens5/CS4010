@@ -1,27 +1,26 @@
 //Professor Henry Kang | CS 4010
-// Gabriel J ~ Lat updated: August 30, 2026
+// Gabriel J ~ Lat updated: Sep 7, 2026
 
-//our app domain
+// app domain
 package com.packt.cardatabase;
 
-//final utility class providing statics methods to manipulate arrays.
+import com.packt.cardatabase.domain.Car;
+import com.packt.cardatabase.domain.CarRepository;
+import com.packt.cardatabase.domain.Owner;
+import com.packt.cardatabase.domain.OwnerRepository;
+import com.packt.cardatabase.domain.Pet;
+import com.packt.cardatabase.domain.PetRepository;
+
+// Array methods
 import java.util.Arrays;
 
 //SLF4J (Simple Logging Facade for Java)
-// is a universal abstraction layer
-// and interface for various logging frameworks in Java
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-//domain classes
-import com.packt.cardatabase.domain.Car;
-import com.packt.cardatabase.domain.CarRepository;
-import com.packt.cardatabase.domain.Owner;
-import com.packt.cardatabase.domain.OwnerRepository;
 
 @SpringBootApplication
 public class CardatabaseApplication implements CommandLineRunner {
@@ -32,12 +31,15 @@ public class CardatabaseApplication implements CommandLineRunner {
 
 	private final CarRepository repository;
 	private final OwnerRepository orepository;
+	private final PetRepository prepository;
 
 	public CardatabaseApplication(CarRepository repository,
-								  OwnerRepository orepository)
+								  OwnerRepository orepository,
+								  PetRepository prepository)
 	{
 		this.repository = repository;
 		this.orepository = orepository;
+		this.prepository = prepository;
 	}
 
 	public static void main(String[] args) {
@@ -47,45 +49,72 @@ public class CardatabaseApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//Defines compact data arrays for Owners, Cars, & (next) Pets
-		String[][] ownerData = {
-				{"John", "Johnson"}, {"Mary", "Robinson"}, {"David", "Smith"}, {"Sarah", "Miller"}, {"James", "Davis"},
-				{"Emily", "Garcia"}, {"Michael", "Rodriguez"}, {"Jessica", "Martinez"}, {"Robert", "Hernandez"}, {"Linda", "Lopez"}
-		};
 
-		Object[][] carData = {
-				{"Ford", "Mustang", "Red", "ADF-1121", 2023, 59000},
-				{"Nissan", "Leaf", "White", "SSJ-3002", 2020, 29000},
-				{"Toyota", "Prius", "Silver", "KKO-0212", 2022, 39000},
-				{"Honda", "Civic", "Black", "BBA-4455", 2021, 25000},
-				{"Tesla", "Model 3", "Blue", "TSL-7788", 2023, 45000},
-				{"Chevrolet", "Bolt", "Grey", "CHV-9900", 2022, 28000},
-				{"BMW", "3 Series", "White", "BMW-1122", 2023, 48000},
-				{"Audi", "A4", "Black", "AUD-3344", 2021, 42000},
-				{"Hyundai", "Elantra", "Blue", "HYU-5566", 2020, 21000},
-				{"Kia", "Sportage", "Red", "KIA-7788", 2022, 32000}
-		};
+		Owner owner1 = new Owner("John", "Doe");
+		Owner owner2 = new Owner("Jane", "Dan");
+		Owner owner3 = new Owner("Gabriel", "Jackson");
+		Owner owner4 = new Owner("Henry", "Kang");
+		Owner owner5 = new Owner("Joe", "Dirt");
+		Owner owner6 = new Owner("Ann", "Perkins");
+		Owner owner7 = new Owner("Michael", "Lee");
+		Owner owner8 = new Owner("Mace", "Windu");
+		Owner owner9 = new Owner("Tony", "Soprano");
+		Owner owner10 = new Owner("Truman", "Burbank");
 
-		//Processes data sequentially to keep memory overhead minimal
-		for (int i = 0; i < ownerData.length; i++) {
-			//Instantiates, saves, and frees the owner memory reference inside the loop scope
-			Owner owner = orepository.save(new Owner(ownerData[i][0], ownerData[i][1]));
+		orepository.saveAll(Arrays.asList(owner1, owner2, owner3, owner4, owner5,
+				owner6, owner7, owner8, owner9, owner10));
 
-			//Instantiates, saves, and frees the car memory reference inside the loop scope
-			repository.save(new Car(
-					(String) carData[i][0],  // Brand
-					(String) carData[i][1],  // Model
-					(String) carData[i][2],  // Color
-					(String) carData[i][3],  // Register Number
-					(Integer) carData[i][4], // Year
-					(Integer) carData[i][5], // Price
-					owner                    // Owner entity link
-			));
-		}
+		logger.info("Repository after adding owners: {}", orepository.findAll());
+
+
+		repository.save(new Car("Infiniti", "G35 Coupe", "Black",
+				"CA-RIP", 2005, 5000, owner1));
+
+		repository.save(new Car("Chevorlet", "Spark",
+				"White", "ADF-8742", 2023, 15000,
+				owner2));
+		repository.save(new Car("Fiat", "500e",
+				"Yellow", "ADF-2302", 2023, 20000,
+				owner3));
+		repository.save(new Car("Toyota", "Supra",
+				"Black", "ADF-9110", 2023, 45000,
+				owner4));
+		repository.save(new Car("Mittsubishi", "Lancer Evo",
+				"Green", "PRO-6060", 1990, 100000,
+				owner1));
+		repository.save(new Car("Chevorlet", "Camaro",
+				"Red", "ADF-0061", 2023, 59000,
+				owner6));
+		repository.save(new Car("Tesla", "S",
+				"Grey", "ADF-1121", 2024, 1,
+				owner7));
+		repository.save(new Car("Volkswagen", "Golf R",
+				"Dark Navy", "FL-0410", 2022, 30000,
+				owner8));
+		repository.save(new Car("Ford", "Mustang",
+				"Black", "ADF-0390", 2023, 59000,
+				owner9));
+		repository.save(new Car("Ford", "F150",
+				"Pink as heck", "ADF-2040", 2025, 50000,
+				owner10));
+
+		logger.info("Repository after adding cars: {}", repository.findAll());
+
+		Pet pet1 = new Pet("Coco", "Oriental", "January 1, 2019", owner1);
+		prepository.save(pet1);
+
 
 		// Fetches all cars and logs to console
 		for (Car car : repository.findAll()) {
 			logger.info("brand: {}, model: {}", car.getBrand(), car.getModel());
+		}
+		for (Owner owner : orepository.findAll()) {
+			logger.info("firstname: {}, lastname: {}", owner.getFirstname(), owner.getLastname());
+		}
+		for (Pet pet : prepository.findAll()) {
+			logger.info("name {}, species: {}, dob: {}", pet.getName(),
+					pet.getSpecies(), pet.getDob());
+
 		}
 	}
 }
