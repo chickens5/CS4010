@@ -1,3 +1,5 @@
+// Java build tool
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.0' // 3.1.0 <- 3.1.4

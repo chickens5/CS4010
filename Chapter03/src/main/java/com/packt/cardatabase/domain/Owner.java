@@ -1,5 +1,8 @@
 //Professor Henry Kang | CS 4010
-// Gabriel J ~ Lat updated: August 30, 2026
+// Gabriel J ~ Last updated: Sep 13, 2026
+
+// This file defines our Owner entity class with a OneToMany relationship to Car & Pet
+// along with Getters & Setters for attributes: ownerId(PK), firstname, lastname.
 
 package com.packt.cardatabase.domain;
 
@@ -35,47 +38,38 @@ public class Owner {
 	private List<Pet> pets;
 
 	public List<Pet> getPets() {
-
 		return pets;
 	}
 
 	public void setPets(List<Pet> pets) {
-
 		this.pets = pets;
 	}
 
 	public List<Car> getCars() {
-
 		return cars;
 	}
 
 	public void setCars(List<Car> cars) {
-
 		this.cars = cars;
 	}
 
 	public Long getOwnerid() {
-
 		return ownerid;
 	}
 
 	public String getFirstname() {
-
 		return firstname;
 	}
 
 	public void setFirstname(String firstname) {
-
 		this.firstname = firstname;
 	}
 
 	public String getLastname() {
-
 		return lastname;
 	}
 
 	public void setLastname(String lastname) {
-
 		this.lastname = lastname;
 	}
 }

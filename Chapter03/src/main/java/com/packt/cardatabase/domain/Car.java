@@ -1,5 +1,12 @@
-// Gabriel J ~ Lat updated: August 30, 2026
+//Professor Henry Kang | CS 4010
+// Gabriel J ~ Last updated: Sep 13, 2026
+
+// This file defines our Car entity class with a ManyToOne relationship to Owner
+// along with Getters & Setters for attributes: id(PK), brand, model, color, registration #,
+// modelYear, price, and owner (FK).
+
 package com.packt.cardatabase.domain;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
