@@ -3,7 +3,7 @@
 
 // JPA repository for Car table queries
 
-package com.packt.cardatabase.domain;
+package com.packt.hw1.domain;
 
 import org.springframework.data.repository.CrudRepository;
 

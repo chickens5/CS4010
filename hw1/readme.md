@@ -1,7 +1,7 @@
 ## Welcome
-This is project 1 (Chapter 3)
+This is HW1 (Chapter 3)
 
-This Spring boot application initializes & constructs objects of 3 entity classes and populates the data into 
+This Spring boot application (hw1Main) initializes & constructs objects of 3 entity classes and populates the data into 
 cardb (postgres).
 
 - 3 Entities (`Owner`, `Car`, `Pet`): `Car` and `Pet` have a Many-to-One relationship with `Owner` (One-to-Many).

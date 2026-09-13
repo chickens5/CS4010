@@ -5,13 +5,13 @@
 //  inserts data into cardb (create-drop), and logs the data.
 
 // app domain
-package com.packt.cardatabase;
-import com.packt.cardatabase.domain.Car;
-import com.packt.cardatabase.domain.CarRepository;
-import com.packt.cardatabase.domain.Owner;
-import com.packt.cardatabase.domain.OwnerRepository;
-import com.packt.cardatabase.domain.Pet;
-import com.packt.cardatabase.domain.PetRepository;
+package com.packt.hw1;
+import com.packt.hw1.domain.Car;
+import com.packt.hw1.domain.CarRepository;
+import com.packt.hw1.domain.Owner;
+import com.packt.hw1.domain.OwnerRepository;
+import com.packt.hw1.domain.Pet;
+import com.packt.hw1.domain.PetRepository;
 
 // Array methods
 import java.time.LocalDate;
@@ -27,10 +27,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CardatabaseApplication implements CommandLineRunner {
+public class hw1Main implements CommandLineRunner {
 	// Assigns logger to our application class
 	private static final Logger logger = LoggerFactory.getLogger(
-			CardatabaseApplication.class
+			hw1Main.class
 	);
 // Declares Car, Pet, & Owner repositories
 	private final CarRepository repository;
@@ -38,9 +38,9 @@ public class CardatabaseApplication implements CommandLineRunner {
 	private final PetRepository prepository;
 
 // Constructor injection for the repos
-	public CardatabaseApplication(CarRepository repository,
-								  OwnerRepository orepository,
-								  PetRepository prepository)
+	public hw1Main(CarRepository repository,
+				   OwnerRepository orepository,
+				   PetRepository prepository)
 	{
 		this.repository = repository;
 		this.orepository = orepository;
@@ -48,7 +48,7 @@ public class CardatabaseApplication implements CommandLineRunner {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(CardatabaseApplication.class, args);
+		SpringApplication.run(hw1Main.class, args);
 		logger.info("Application started");
 	}
 

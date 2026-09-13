@@ -5,7 +5,7 @@
 // along with Getters & Setters for attributes: id(PK), brand, model, color, registration #,
 // modelYear, price, and owner (FK).
 
-package com.packt.cardatabase.domain;
+package com.packt.hw1.domain;
 
 
 import jakarta.persistence.Entity;

@@ -3,7 +3,7 @@
 // This file defines our Pet entity class with a ManyToOne relationship to Owner
 // along with Getters & Setters for attributes: id (PK), name, species, dob (LocalDate), and owner (FK).
 
-package com.packt.cardatabase.domain;
+package com.packt.hw1.domain;
 
 import java.time.LocalDate;
 

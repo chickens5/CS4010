@@ -4,7 +4,7 @@
 // This file defines our Owner entity class with a OneToMany relationship to Car & Pet
 // along with Getters & Setters for attributes: ownerId(PK), firstname, lastname.
 
-package com.packt.cardatabase.domain;
+package com.packt.hw1.domain;
 
 import java.util.List;
 
