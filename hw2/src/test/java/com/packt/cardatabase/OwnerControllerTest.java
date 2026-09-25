@@ -1,7 +1,6 @@
 package com.packt.cardatabase;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.packt.cardatabase.hw2.models.Car;
 import com.packt.cardatabase.hw2.repos.CarRepository;
 import com.packt.cardatabase.hw2.models.Owner;
 import com.packt.cardatabase.hw2.repos.OwnerRepository;
@@ -18,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CarControllerTest {
+public class OwnerControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -32,90 +31,86 @@ public class CarControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private Owner owner;
-    private Car savedCar;
+    private Owner savedOwner;
 
     @BeforeEach
     void setUp() {
         carRepository.deleteAll();
         ownerRepository.deleteAll();
 
-        owner = new Owner("Jane", "Doe");
-        owner = ownerRepository.save(owner);
-
-        Car car = new Car("Toyota", "Corolla", "Silver", "ABC-1234", 2021, 20000, owner);
-        savedCar = carRepository.save(car);
+        Owner owner = new Owner("John", "Johnson");
+        savedOwner = ownerRepository.save(owner);
     }
 
     @Test
-    void testGetCars() throws Exception {
-        mockMvc.perform(get("/cars"))
+    void testGetOwners() throws Exception {
+        mockMvc.perform(get("/owners"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].brand").value("Toyota"))
-                .andExpect(jsonPath("$[0].model").value("Corolla"));
+                .andExpect(jsonPath("$[0].firstname").value("John"))
+                .andExpect(jsonPath("$[0].lastname").value("Johnson"));
     }
 
     @Test
-    void testGetCarByIdFound() throws Exception {
-        mockMvc.perform(get("/cars/" + savedCar.getId()))
+    void testGetOwnerByIdFound() throws Exception {
+        mockMvc.perform(get("/owners/" + savedOwner.getOwnerid()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.brand").value("Toyota"))
-                .andExpect(jsonPath("$.registrationNumber").value("ABC-1234"));
+                .andExpect(jsonPath("$.firstname").value("John"))
+                .andExpect(jsonPath("$.lastname").value("Johnson"));
     }
 
     @Test
-    void testGetCarByIdNotFound() throws Exception {
-        mockMvc.perform(get("/cars/999999"))
+    void testGetOwnerByIdNotFound() throws Exception {
+        mockMvc.perform(get("/owners/999999"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void testAddCar() throws Exception {
-        Car newCar = new Car("Honda", "Civic", "Black", "HND-5678", 2022, 24000, owner);
+    void testAddOwner() throws Exception {
+        Owner newOwner = new Owner("Mary", "Robinson");
 
-        mockMvc.perform(post("/cars")
+        mockMvc.perform(post("/owners")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(newCar)))
+                        .content(objectMapper.writeValueAsString(newOwner)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.brand").value("Honda"))
-                .andExpect(jsonPath("$.id").exists());
+                .andExpect(jsonPath("$.firstname").value("Mary"))
+                .andExpect(jsonPath("$.ownerid").exists());
     }
 
     @Test
-    void testUpdateCarFound() throws Exception {
-        Car updateDetails = new Car("Toyota", "Camry", "Gold", "ABC-9999", 2023, 28000, owner);
+    void testUpdateOwnerFound() throws Exception {
+        Owner updateDetails = new Owner("Johnny", "Johnson");
 
-        mockMvc.perform(put("/cars/" + savedCar.getId())
+        mockMvc.perform(put("/owners/" + savedOwner.getOwnerid())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateDetails)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.model").value("Camry"))
-                .andExpect(jsonPath("$.price").value(28000));
+                .andExpect(jsonPath("$.firstname").value("Johnny"))
+                .andExpect(jsonPath("$.lastname").value("Johnson"));
     }
 
     @Test
-    void testUpdateCarNotFound() throws Exception {
-        Car updateDetails = new Car("Toyota", "Camry", "Gold", "ABC-9999", 2023, 28000, owner);
+    void testUpdateOwnerNotFound() throws Exception {
+        Owner updateDetails = new Owner("Johnny", "Johnson");
 
-        mockMvc.perform(put("/cars/999999")
+        mockMvc.perform(put("/owners/999999")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateDetails)))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void testDeleteCarSuccess() throws Exception {
-        mockMvc.perform(delete("/cars/" + savedCar.getId()))
+    void testDeleteOwnerSuccess() throws Exception {
+        mockMvc.perform(delete("/owners/" + savedOwner.getOwnerid()))
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(get("/cars/" + savedCar.getId()))
+        mockMvc.perform(get("/owners/" + savedOwner.getOwnerid()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void testDeleteCarNotFound() throws Exception {
-        mockMvc.perform(delete("/cars/999999"))
+    void testDeleteOwnerNotFound() throws Exception {
+        mockMvc.perform(delete("/owners/999999"))
                 .andExpect(status().isNotFound());
     }
 }

@@ -1,9 +1,9 @@
-// Gabriel J 9/25/26 ~ 1200
+// Gabriel J 9/25/26 ~ 1330
 
-package com.packt.cardatabase;
+package com.packt.cardatabase.hw2.services;
 
-import com.packt.cardatabase.hw2.Owner;
-import com.packt.cardatabase.hw2.OwnerRepository;
+import com.packt.cardatabase.hw2.models.Owner;
+import com.packt.cardatabase.hw2.repos.OwnerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-// Owner Service layer class injected with ownerRepository for data access/service
+// OwnerService logic for Owner entity management
+// Injected with OwnerRepository to handle CRUD operations
 @Service
 public class OwnerService {
 

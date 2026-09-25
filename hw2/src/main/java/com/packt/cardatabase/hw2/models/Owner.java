@@ -1,6 +1,6 @@
 // Gabriel J 9/22/26 ~ 1420
 
-package com.packt.cardatabase.hw2;
+package com.packt.cardatabase.hw2.models;
 
 import java.util.List;
 
@@ -14,6 +14,8 @@ import jakarta.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+// Owner entity model representing car owner records in the database
+// Establishes a one-to-many relationship with Car entities
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Owner {
@@ -45,6 +47,10 @@ public class Owner {
 
 	public Long getOwnerid() {
 		return ownerid;
+	}
+
+	public void setOwnerid(Long ownerid) {
+		this.ownerid = ownerid;
 	}
 
 	public String getFirstname() {

@@ -1,8 +1,9 @@
 // Gabriel J 9/22/26 ~ 1630
 
-package com.packt.cardatabase;
-import com.packt.cardatabase.hw2.Owner;
+package com.packt.cardatabase.hw2.controllers;
+import com.packt.cardatabase.hw2.models.Owner;
 
+import com.packt.cardatabase.hw2.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-// OwnerController class injected with OwnerService for CRUD API calls to /owners
+// OwnerController handles HTTP REST requests for the Owner resource (/owners)
+// Injected with OwnerService to delegate CRUD logic
 @RestController
 @RequestMapping(path = {"/owners"})
 @CrossOrigin

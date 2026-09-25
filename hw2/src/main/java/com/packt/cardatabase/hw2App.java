@@ -9,10 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.packt.cardatabase.hw2.Car;
-import com.packt.cardatabase.hw2.CarRepository;
-import com.packt.cardatabase.hw2.Owner;
-import com.packt.cardatabase.hw2.OwnerRepository;
+import com.packt.cardatabase.hw2.models.*;
+import com.packt.cardatabase.hw2.repos.*;
 
 @SpringBootApplication
 public class hw2App implements CommandLineRunner {
@@ -34,11 +32,16 @@ public class hw2App implements CommandLineRunner {
 		// Add owner objects and saves to db
 		Owner owner1 = new Owner("John", "Johnson");
 		Owner owner2 = new Owner("Mary", "Robinson");
-		orepository.saveAll(Arrays.asList(owner1, owner2));
+		Owner owner3 = new Owner("Gabriel", "Jackson");
+		Owner owner4 = new Owner("Henry", "Kang");
+
+
+		orepository.saveAll(Arrays.asList(owner1, owner2, owner3, owner4));
 
 		repository.save(new Car("Ford", "Mustang", "Red", "ADF-1121", 2023, 59000, owner1));
 		repository.save(new Car("Nissan", "Leaf", "White", "SSJ-3002", 2020, 29000, owner2));
 		repository.save(new Car("Toyota", "Prius", "Silver", "KKO-0212", 2022, 39000, owner2));
+
 
 		// Fetch all cars and log to console
 		for (Car car : repository.findAll()) {

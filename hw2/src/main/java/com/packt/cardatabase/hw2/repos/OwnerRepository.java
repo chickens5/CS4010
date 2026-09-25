@@ -1,8 +1,10 @@
 // Gabriel J 9/25/26 ~ 1200
 
-package com.packt.cardatabase.hw2;
+package com.packt.cardatabase.hw2.repos;
 
 import java.util.List;
+
+import com.packt.cardatabase.hw2.models.Owner;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

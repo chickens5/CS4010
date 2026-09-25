@@ -1,6 +1,6 @@
 // Gabriel J 9/22/26 ~ 1420
 
-package com.packt.cardatabase.hw2;
+package com.packt.cardatabase.hw2.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+// Car entity model representing car records in the database
+// Maps fields to database columns and establishes a many-to-one relationship with Owner
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Car {

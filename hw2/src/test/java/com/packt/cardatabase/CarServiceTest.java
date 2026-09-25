@@ -1,8 +1,9 @@
 package com.packt.cardatabase;
 
-import com.packt.cardatabase.hw2.Car;
-import com.packt.cardatabase.hw2.CarRepository;
-import com.packt.cardatabase.hw2.Owner;
+import com.packt.cardatabase.hw2.models.Car;
+import com.packt.cardatabase.hw2.repos.CarRepository;
+import com.packt.cardatabase.hw2.models.Owner;
+import com.packt.cardatabase.hw2.services.CarService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
