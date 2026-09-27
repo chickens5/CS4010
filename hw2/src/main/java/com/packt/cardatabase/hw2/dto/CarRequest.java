@@ -2,7 +2,7 @@
 
 package com.packt.cardatabase.hw2.dto;
 
-// Standardized CarRequest utilized by Controller
+// Standardized record for Car requests
 public record CarRequest(
         String brand,
         String model,

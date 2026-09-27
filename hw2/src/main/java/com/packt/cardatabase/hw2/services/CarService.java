@@ -1,4 +1,4 @@
-// Gabriel J 9/25/26 ~ 1330
+// Gabriel J 9/27/26 ~ 1730
 
 package com.packt.cardatabase.hw2.services;
 
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 
 // CarService logic for Car entity management
-// Injected with CarRepository and OwnerRepository to handle CRUD operations and owner verification
+// Injected with CarRepository and OwnerRepository for CRUD operations and owner verification
 @Service
 public class CarService {
 
@@ -29,6 +29,8 @@ public class CarService {
         this.ownerRepository = ownerRepository;
     }
 
+    // ====== CRUD Service Methods (uses CarRequest record standardization) =======
+
     public List<Car> getCars() {
         return carRepository.findAll();
     }
@@ -37,6 +39,7 @@ public class CarService {
         return carRepository.findById(id);
     }
 
+    // Create a Car if ownerId exists
     public Car addCar(CarRequest request) {
         Owner owner = null;
         if (request.ownerId() != null) {
@@ -57,9 +60,20 @@ public class CarService {
         return carRepository.save(car);
     }
 
+    // Update a Car if it's id and ownerId exist
     public Car updateCar(Long id, CarRequest request) {
         Car existingCar = carRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Car with id " + id + " does not exist"));
+
+        if (existingCar.getOwner() != null) {
+            if (request.ownerId() == null || !request.ownerId().equals(existingCar.getOwner().getOwnerid())) {
+                throw new IllegalArgumentException("Only the car's owner can update this car");
+            }
+        } else if (request.ownerId() != null) {
+            Owner owner = ownerRepository.findById(request.ownerId())
+                    .orElseThrow(() -> new IllegalArgumentException("Owner with id " + request.ownerId() + " does not exist"));
+            existingCar.setOwner(owner);
+        }
 
         if (request.brand() != null) existingCar.setBrand(request.brand());
         if (request.model() != null) existingCar.setModel(request.model());
@@ -68,15 +82,9 @@ public class CarService {
         if (request.modelYear() != 0) existingCar.setModelYear(request.modelYear());
         if (request.price() != 0) existingCar.setPrice(request.price());
 
-        if (request.ownerId() != null) {
-            Owner owner = ownerRepository.findById(request.ownerId())
-                    .orElseThrow(() -> new IllegalArgumentException("Owner with id " + request.ownerId() + " does not exist"));
-            existingCar.setOwner(owner);
-        }
-
         return carRepository.save(existingCar);
     }
-
+    // Delete Car if it's id exists
     @Transactional
     public void deleteCar(Long id) {
         if (!carRepository.existsById(id)) {

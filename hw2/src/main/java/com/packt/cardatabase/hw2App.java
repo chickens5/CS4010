@@ -41,6 +41,8 @@ public class hw2App implements CommandLineRunner {
 		repository.save(new Car("Ford", "Mustang", "Red", "ADF-1121", 2023, 59000, owner1));
 		repository.save(new Car("Nissan", "Leaf", "White", "SSJ-3002", 2020, 29000, owner2));
 		repository.save(new Car("Toyota", "Prius", "Silver", "KKO-0212", 2022, 39000, owner2));
+		repository.save(new Car("Toyota", "Supra", "Black", "TIS--FST", 2025, 50000, owner4));
+		repository.save(new Car("Infiniti", "G35 Coupe", "Black", "RIP-CAR", 2005, 3000, owner3));
 
 
 		// Fetch all cars and log to console

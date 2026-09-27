@@ -1,9 +1,11 @@
-// Gabriel J 9/22/26 ~ 1630
+// Gabriel J 9/27/26 ~ 1730
 
 package com.packt.cardatabase.hw2.controllers;
-import com.packt.cardatabase.hw2.models.Owner;
 
+import com.packt.cardatabase.hw2.models.Owner;
 import com.packt.cardatabase.hw2.services.OwnerService;
+import com.packt.cardatabase.hw2.dto.OwnerRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-// OwnerController handles HTTP REST requests for the Owner resource (/owners)
+// Handles HTTP REST requests for Owner entity and
 // Injected with OwnerService to delegate CRUD logic
 @RestController
 @RequestMapping(path = {"/owners"})
@@ -27,13 +29,14 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    // ====== GET ==============
+//====== CRUD Mappings return OwnerService method result as ResponseEntity =====
+
+    // --- GET---
     @GetMapping
     public ResponseEntity<List<Owner>> getOwners() {
         List<Owner> owners = ownerService.getOwners();
         return new ResponseEntity<>(owners, HttpStatus.OK);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Owner> getOwnerById(@PathVariable Long id) {
         Optional<Owner> owner = ownerService.getOwnerById(id);
@@ -41,30 +44,33 @@ public class OwnerController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
-    // ==== POST, PUT, & DELETE =======
+    //--- POST, PUT & DEL ---
     @PostMapping
-    public ResponseEntity<Owner> addOwner(@RequestBody Owner owner) {
-        Owner createdOwner = ownerService.addOwner(owner);
-        return new ResponseEntity<>(createdOwner, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Owner> updateOwner(@PathVariable Long id, @RequestBody Owner owner) {
+    public ResponseEntity<?> addOwner(@RequestBody OwnerRequest request) {
         try {
-            Owner updatedOwner = ownerService.updateOwner(id, owner);
-            return new ResponseEntity<>(updatedOwner, HttpStatus.OK);
-        } catch (IllegalStateException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            Owner createdOwner = ownerService.addOwner(request);
+            return new ResponseEntity<>(createdOwner, HttpStatus.CREATED);
+        } catch (IllegalArgumentException exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateOwner(@PathVariable Long id, @RequestBody OwnerRequest request) {
+        try {
+            Owner updatedOwner = ownerService.updateOwner(id, request);
+            return new ResponseEntity<>(updatedOwner, HttpStatus.OK);
+        } catch (IllegalStateException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOwner(@PathVariable Long id) {
         try {
             ownerService.deleteOwner(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
