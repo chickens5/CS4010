@@ -1,5 +1,8 @@
-package com.example.school;
+package com.cs4010.school;
 
+import com.cs4010.school.domain.Student;
+import com.cs4010.school.domain.StudentRepository;
+import com.cs4010.school.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

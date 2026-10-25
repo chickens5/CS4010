@@ -1,5 +1,7 @@
-package com.example.school;
+package com.cs4010.school;
 
+import com.cs4010.school.domain.Student;
+import com.cs4010.school.domain.StudentRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;

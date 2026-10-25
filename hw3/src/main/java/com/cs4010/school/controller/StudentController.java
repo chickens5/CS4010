@@ -1,5 +1,9 @@
-package com.example.school;
+// Gabriel J 10/25/26 ~ 1600 | Modified from school-api
 
+package com.cs4010.school.controller;
+
+import com.cs4010.school.domain.Student;
+import com.cs4010.school.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+// Controller Class for Student CRUD operations/endpoints that requires JWT Auth.
 @RestController
 @RequestMapping("student")
 @CrossOrigin

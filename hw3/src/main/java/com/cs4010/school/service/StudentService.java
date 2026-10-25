@@ -1,5 +1,9 @@
-package com.example.school;
+// Gabriel J 10/25/26 ~ 1600 | Modified from school-api
 
+package com.cs4010.school.service;
+
+import com.cs4010.school.domain.Student;
+import com.cs4010.school.domain.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// Service Class ~ Handles CRUD logic for Student Table
 @Service
 public class StudentService {
 
