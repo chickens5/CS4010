@@ -1,16 +1,23 @@
+// Gabriel J 11/8/26 ~ 1700
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import { API_URL } from "../api/studentAPI";
+
 import AddStudent from "./AddStudent";
 import EditStudent from "./EditStudent";
+import SearchBox, { useStudentSearch } from "./SearchBox";
 import "./StudentTable.css";
 
 function StudentTable() {
   const [students, setStudents] = useState([]);
+  const search = useStudentSearch(students);
 
   const fetchStudents = async () => {
     const response = await axios.get(`${API_URL}`); // returns Promise
@@ -31,6 +38,7 @@ function StudentTable() {
   const handleClickDelete = (studentId) => {
     deleteStudent(studentId);
   }
+
 
   const columns = [
     { field: 'studentId', headerName: 'Student ID', width: 120, headerAlign: 'center', align: 'center', headerClassName: 'custom-header' },
@@ -73,17 +81,32 @@ function StudentTable() {
   return (
     <div className="bg-container">
       <div className="tbl-container">
+
+        {/* Filters on every keystroke */}
+        <SearchBox value={search.query} onChange={(e) => search.setQuery(e.target.value)} />
+
         <div className="btn-container">
           <AddStudent setStudents={setStudents}/>
         </div>
+
         <DataGrid data-testid="student-table"
-          rows={students}
+          rows={search.filteredRows}
           columns={columns}
           disableRowSelectionOnClick={true}
           getRowId={row => row.studentId}
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? 'hot' : 'cold'
           }
+
+    // Extra Feature:
+    // built-in toolbar quick filter that debounces searches instead of by keystroke
+          slots={{ toolbar: GridToolbar }}
+                slotProps={{
+                toolbar: {
+                    showQuickFilter: true,
+                    quickFilterProps: { debounceMs: 500 }, // delays the search execution 
+                },
+                }}
           sx={{
             boxShadow: 2,
             '& .MuiDataGrid-cell:hover': {
@@ -98,7 +121,9 @@ function StudentTable() {
               color: 'black',
             },
           }}
+
         />
+        
       </div>
     </div>
   );

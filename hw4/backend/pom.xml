@@ -8,11 +8,11 @@
 		<version>3.0.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>school</artifactId>
+	<groupId>hw4.server</groupId>
+	<artifactId>school-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>school</name>
-	<description>Demo project for Spring Boot</description>
+	<name>school-api</name>
+	<description>HW4 for CS4010</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
