@@ -1,3 +1,5 @@
+// Gabriel J 11/8/26 ~ 1700
+
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,6 +9,7 @@ import { useState } from 'react';
 import { API_URL } from "../api/studentAPI";
 import AddStudentDialogContent from './AddStudentDialogContent';
 
+// POSTS a student and fetches fresh results using the API
 function AddStudent({ setStudents }) {
 
     const [open, setOpen] = useState(false);
@@ -47,6 +50,7 @@ function AddStudent({ setStudents }) {
         handleClose();
     }
 
+// Add button and dialog for POST
     return (
         <>
             <Button data-testid="add-student-button"

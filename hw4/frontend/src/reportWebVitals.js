@@ -1,3 +1,5 @@
+// Gabriel J 11/5/26 ~ 1500
+
 const reportWebVitals = onPerfEntry => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {

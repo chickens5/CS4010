@@ -1,3 +1,5 @@
+// Gabriel J 11/8/26 ~ 1700
+
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -10,6 +12,7 @@ import { useState } from 'react';
 import { API_URL } from "../api/studentAPI";
 import EditStudentDialogContent from './EditStudentDialogContent';
 
+// PUTs a student and fetches fresh results using the API
 function EditStudent({ studentData, setStudents }) {
 
     const [open, setOpen] = useState(false); // initially hide edit diaglog window
@@ -21,7 +24,7 @@ function EditStudent({ studentData, setStudents }) {
     });
 
     const handleClickOpen = () => {
-        setOpen(true); // display edit diaglog window
+        setOpen(true); // display edit dialog window 
         setStudent({
             studentId: studentData.studentId,
             name: studentData.name,
@@ -55,7 +58,7 @@ function EditStudent({ studentData, setStudents }) {
     const handleChange = (event) => {
         setStudent({ ...student, [event.target.name]: event.target.value });
     }
-
+// Edit button and the dialog for PUT
     return (
         <>
             <Tooltip title="Edit Student">

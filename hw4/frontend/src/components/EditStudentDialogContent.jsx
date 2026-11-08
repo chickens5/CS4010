@@ -1,7 +1,10 @@
+// Gabriel J 11/8/26 ~ 1700
+
 import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 
+// Builds the DialogContent for editing a student
 function EditStudentDialogContent({ student, handleChange }) {
     return (
         <>
